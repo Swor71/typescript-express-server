@@ -24,7 +24,7 @@ class Server {
 
   public config() {
     // set up mongoose
-    const MONGO_URI = 'mongodb://localhost/tes';
+    const MONGO_URI: string = 'mongodb://localhost/tes';
     mongoose.connect(MONGO_URI || process.env.MONGODB_URI);
 
     // config

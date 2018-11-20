@@ -25,7 +25,13 @@ const UserSchema: Schema = new Schema({
     type: String,
     default: '',
     required: true
-  }
+  },
+  posts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Post'
+    }
+  ]
 });
 
 export default model('User', UserSchema);

@@ -29,6 +29,7 @@ class UserRouter {
   public GetUser(req: Request, res: Response): void {
     const username: string = req.params.username;
     User.findOne({ username })
+      .populate('posts', 'title content')
       .then(data => {
         const status = res.statusCode;
         res.json({
@@ -49,12 +50,14 @@ class UserRouter {
     const username: string = req.body.username;
     const email: string = req.body.email;
     const password: string = req.body.password;
+    const posts: string[] = req.body.posts;
 
     const user = new User({
       name,
       username,
       email,
-      password
+      password,
+      posts
     });
 
     user
@@ -116,9 +119,9 @@ class UserRouter {
   routes() {
     this.router.get('/', this.GetUsers);
     this.router.post('/', this.CreateUser);
-    this.router.get('/:slug', this.GetUser);
-    this.router.put('/:slug', this.UpdateUser);
-    this.router.delete('/:slug', this.DeleteUser);
+    this.router.get('/:username', this.GetUser);
+    this.router.put('/:username', this.UpdateUser);
+    this.router.delete('/:username', this.DeleteUser);
   }
 }
 
